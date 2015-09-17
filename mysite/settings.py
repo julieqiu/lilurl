@@ -137,7 +137,6 @@ MEDIA_ROOT = normpath(join(SITE_ROOT, 'mediafiles'))
 STATIC_URL = '/static/'
 STATIC_ROOT = normpath(join(SITE_ROOT, 'staticfiles'))  
 STATICFILES_DIRS = (
-    join(DJANGO_ROOT, 'static'),
 )  
 
 # Django Pipeline (and browserify)
