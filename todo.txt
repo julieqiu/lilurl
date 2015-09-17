@@ -1,0 +1,4 @@
+config with heroku
+make box/button prettier
+404page
+apply for each user

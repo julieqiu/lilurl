@@ -1,0 +1,107 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lil URL</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/jsx">
+        var UrlBox = React.createClass({
+            handleUrlSubmit: function(url) {
+                var urls = this.state.data;
+                var newUrls = urls.concat([url]);
+                this.setState({data: newUrls});
+                $.ajax({
+                    url: this.props.url,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: comment, 
+                    success: function(data) {
+                        this.setState({data: data});
+                    }.bind(this)
+                });
+            },
+            render: function() {
+                return (
+                    <div className="urlBox">
+                        <h1>Urls</h1>
+                        <UrlList data={this.props.data} />
+                        <UrlForm onUrlSubmit={this.handleUrlSubmit} />
+                    </div>
+                );
+            }
+        });
+
+        var UrlList = React.createClass({
+            render: function() {
+                var urlNodes = this.props.data.map(function (url) {
+                    return (
+                    <Url shortener_code={url.shortener_code}>
+                        {url.text}
+                    </Url>
+                return (
+                    <div className="urlList">
+                        {urlNodes}
+                    </div>
+                );
+            }
+        });
+
+        var UrlForm = React.createClass({
+            handleSubmit: function(e) {
+                e.preventDefault();
+                var redirect_url = React.findDOMNode(this.refs.author).value.trim();
+                if (!redirect_url) {
+                    return;
+                }
+                this.props.onUrlSubmit({redirect_url: redirect_url, shortener_code: shortener_code});
+                React.findDOMNode(this.refs.redirect_url).value='';
+                return;
+            },
+            render: function() {
+                return (
+                <form className="urlForm" onSubmit={this.handleSubmit}>
+                        <input type="text" placeholder="Enter a link to shorten it" ref="redirect_url"/>
+                        <input type="submit" value="Shorten" />                      
+                    </form>
+                );
+            }
+        });
+
+        var Url = React.createClass({
+            render: function() {
+                return (
+                    <div className="url">
+                        <h2 className="shortener_code">
+                            {this.props.url}
+                        </h2>
+                        {this.props.children}
+                    </div>
+        
+        React.render(
+            <UrlBox />
+            document.getElementById('content')
+        );
+    </script>
+  </body>
+</html>
+
+
+<html>
+    <head>
+        <title>Lil URL </title>
+    </head>
+    <body>
+        <h1>Lil URL Shortener!</h1>
+        <form action="{% url 'lilurl:index' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="redirect_url" id="redirect_url" placeholder="Enter a link to shorten it" />
+            <input type="submit" value="Shorten">
+        </form>
+    </body>
+</html>
