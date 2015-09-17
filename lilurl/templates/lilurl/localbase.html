@@ -1,3 +1,4 @@
+{% load pipeline %}
 <!DOCTYPE html>  
 <html lang="en">  
   <head>
@@ -8,8 +9,7 @@
     <meta name="author" content="Oh shit! Word?!">
 
     <!-- styles -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/lilurl_css.css' %}">
+    {% stylesheet 'lilurl_css' %}
 
   </head>
   <body>
@@ -17,7 +17,7 @@
     {% block content %}{% endblock %}
 
     <!-- JavaScript scripts -->
-    <script type="text/javascript" src="{% static 'js/lilurl_js.js' %}"></script>
 
+    {% javascript 'lilurl_js' %}
   </body>
 </html>  

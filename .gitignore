@@ -2,3 +2,9 @@ venv
 *.pyc
 keys.sh
 node_modules
+todo.txt
+staticfiles
+bower.json
+package.json
+mediafiles
+
