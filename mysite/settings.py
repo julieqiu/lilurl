@@ -89,7 +89,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-ENVIRONMENT = os.environ.get('ENVIRONMENT')
+ENVIRONMENT = os.environ.get('ENVIRONMENT', 'dev')
 if ENVIRONMENT != 'dev':
 # Parse database configuration from $DATABASE_URL
     DATABASES['default'] = dj_database_url.config()
