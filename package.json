@@ -1,7 +1,7 @@
 {
   "name": "mysite",
   "version": "1.0.0",
-  "description": "lilurl packages",
+  "description": "lilurl package",
   "main": "index.js",
   "dependencies": {
     "browserify": "^11.1.0"
