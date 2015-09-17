@@ -31,7 +31,9 @@ def get_env_variable(var_name):
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_variable('SECRET_KEY')
+# SECRET_KEY = get_env_variable('SECRET_KEY')
+SECRET_KEY='r)_bj$%4ap6umtq-2je$bq*8yu7=*!l7%tleda3krs!s98g30#'
+
 ENVIRONMENT = get_env_variable('ENVIRONMENT')
 POSTGRES_PASSWORD = False
 DEBUG = False
