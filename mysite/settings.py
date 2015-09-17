@@ -151,15 +151,13 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-if ENVIRONMENT == 'dev':
 # browserify-specific
-    PIPELINE_COMPILERS = (  
+PIPELINE_COMPILERS = (  
         'pipeline_browserify.compiler.BrowserifyCompiler',
     )
 
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'  
-#PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
-PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
 
 if DEBUG:  
     PIPELINE_BROWSERIFY_ARGUMENTS = '-t babelify'
@@ -176,11 +174,10 @@ PIPELINE_CSS = {
 PIPELINE_JS = {  
     'lilurl_js': {
         'source_filenames': (
-#            'js/bower_components/jquery/dist/jquery.min.js',
-#            'js/bower_components/react/JSXTransformer.js',
-#            'js/bower_components/react/react-with-addons.js',
-#            'js/app.browserify.js',
-             'js/test.js',
+            'js/bower_components/jquery/dist/jquery.min.js',
+            'js/bower_components/react/JSXTransformer.js',
+            'js/bower_components/react/react-with-addons.js',
+            'js/app.browserify.js',
         ),
         'output_filename': 'js/lilurl_js.js',
     }
