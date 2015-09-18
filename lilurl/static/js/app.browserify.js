@@ -36,19 +36,29 @@ $.ajaxSetup({
 
 var LinkBox = React.createClass({
   handleLinkSubmit: function(link) {
+    /*
+    console.log('hi');
     var links = this.state.data;
-    var newLinks = links.concat([link]);
+var newLinks = links.concat([link]);
     this.setState({data: newLinks});
+    console.log('this.state.data')
+    console.log(this.state.data)
+    console.log('link')
+    console.log(link)
+    */
     $.ajax({
       url: this.props.url,
       dataType: 'json',
       type: 'POST',
       data: link,
-      success: function(data) {
-        this.setState({data: data});
+      success: function(msg, status, data) {
+        console.log(data.responseJSON)
+        this.setState({data: data.responseJSON});
       }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+      error: function(xhr, status, err, data) {
+        console.log('error')
+        console.log(data)
+        console.log(link)
       }.bind(this)
     });
   },
@@ -71,8 +81,11 @@ var Link = React.createClass({
         return (
             <div className="link">
                 <h2 className="linkUrl">
-                    {this.props.link}
+                    {this.props.code}
                 </h2>
+                <p>
+                    {this.props.link}
+                </p>
             </div>
         );
     }
@@ -80,9 +93,9 @@ var Link = React.createClass({
 
 var LinkList = React.createClass({
     render: function() {
-        var linkNodes = this.props.data.map(function (link) {
+        var linkNodes = this.props.data.map(function (data) {
             return (
-                <Link link={link.link} >
+                <Link link={data.link} code={data.code}>
                 </Link>
             );
         });
