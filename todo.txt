@@ -1,4 +1,13 @@
-config with heroku
-make box/button prettier
+write github page
+config with heroku -- fix security settings
 404page
-apply for each user
+Remember how many times that link is used
+Display data on how much that link gets used
+style your page a bit
+load test your server - can you take 100 posts per second? 1000 shortened link GETs per second? How many redirections or shortens can your site do per second? What was the bottleneck?
+Make click data private to whoever made the original shortened link
+break down link click stats by browser
+make a bookmarklet that gives the user the shortened version of a link without leaving a page.
+update your link click stats in realtime (no refresh required)
+Allow user to choose a URL!
+
