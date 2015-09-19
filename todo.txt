@@ -1,4 +1,3 @@
-write github page
 config with heroku -- fix security settings
 404page
 Remember how many times that link is used

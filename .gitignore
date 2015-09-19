@@ -1,8 +1,9 @@
 venv
 *.pyc
-keys.sh
+.keys.sh
 node_modules
 todo.txt
 staticfiles
 mediafiles
+migrations
 
