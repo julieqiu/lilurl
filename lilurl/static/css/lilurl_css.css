@@ -1,3 +1,109 @@
-body {  
-  background-color: #22A7F0;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+body {
+    margin-top: 200px;
+}
+
+p {
+    font-size: 25px;
+}
+
+a,
+a:hover,
+a:focus,
+a:active
+a.active {
+    outline: 0;
+    color: #5dd0b9;
+}
+
+#content {
+    width: 600px;
+    text-align: center;
+    margin:auto;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    font-family: "Open Sans", Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin:0;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: 40px;
+    margin-bottom:30px;
+}
+
+.btn {
+    font-size: 15px;
+    width: 100px;
+    color: #fff;
+    border: 0;
+    border-radius: 0px 5px 5px 0px;
+    height: 50px;
+    background-color: #5dd0b9;
+    border-color: #5dd0b9;
+    outline: none;
+}
+
+.btn:hover,
+
+.btn.active {
+    background: #18bc9c;
+    color: #fff;
+}
+
+/*
+.btn-outline {
+    margin-top: 15px;
+    border: solid 2px #fff;
+    font-size: 20px;
+    color: #fff;
+    background: 0 0;
+    transition: all .3s ease-in-out;
+}
+*/
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+    outline: none;
+    border: solid 2px #fff;
+    color: #18bc9c;
+    background: #fff;
+}
+
+.link {
+    font-size: 16px;
+    text-align: left;
+    border-left: 5px solid #bbb;
+    padding-left: 15px;
+}
+
+.link a {
+    display:block;
+    padding: 10px;
+    color: #18bc9c;
+    background: #eee;
+    border-radius: 5px;
+    font-size:22px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.url-input { 
+    border-radius: 5px 0px 0px 5px;
+    outline: none;
+    width: calc(100% - 100px); 
+    height: 50px; 
+    padding: 5px 15px;
+    margin-bottom:50px;
+    font-size: 16px;
+    border: #ddd 1px solid;
+}
+.url-input:focus {
+    border: #5dd0b9 1px solid;
 }

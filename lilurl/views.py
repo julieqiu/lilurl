@@ -9,8 +9,6 @@ import random
 import string
 import json
 
-link_data = []
-
 @ensure_csrf_cookie
 def index(request):
     return render(request, 'lilurl/index.html')
@@ -19,17 +17,15 @@ def postdetails(request):
     if request.method == 'GET':
         return HttpResponse('post details get')
     if request.method == 'POST':
-        #host = request.get_host()
-        #host = 'http://'+host
+        host = request.get_host()
+        host = 'http://'+host+'/'
         url = request.POST.get('link')
         if (url is not None) and (url!=""):
             key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
             q = Url(shortener_code=key, redirect_url=url)
             q.save()
-            #global link_data
-            #link_data.append(q)
-            #data = json.dumps([{'link':url, 'code': host+'/'+key}])
-            data = json.dumps([{'link':url, 'code': key}])
+            data = json.dumps([{'link':url, 'code': host+key}])
+            print data
             return HttpResponse(data)
 
 def redir(request, shortener_code):

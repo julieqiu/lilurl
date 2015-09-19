@@ -8,7 +8,7 @@ function getCookie(name) {
     if (document.cookie && document.cookie != '') {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
+            var cookie = $.trim(cookies[i]);
             // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) == (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
@@ -28,7 +28,6 @@ function csrfSafeMethod(method) {
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            console.log(csrftoken)
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         }
     }
@@ -36,29 +35,18 @@ $.ajaxSetup({
 
 var LinkBox = React.createClass({
   handleLinkSubmit: function(link) {
-    /*
-    console.log('hi');
-    var links = this.state.data;
-var newLinks = links.concat([link]);
-    this.setState({data: newLinks});
-    console.log('this.state.data')
-    console.log(this.state.data)
-    console.log('link')
     console.log(link)
-    */
     $.ajax({
       url: this.props.url,
       dataType: 'json',
       type: 'POST',
       data: link,
       success: function(msg, status, data) {
-        console.log(data.responseJSON)
+        console.log(data);
         this.setState({data: data.responseJSON});
       }.bind(this),
       error: function(xhr, status, err, data) {
-        console.log('error')
-        console.log(data)
-        console.log(link)
+        console.log(status, err)
       }.bind(this)
     });
   },
@@ -69,6 +57,7 @@ var newLinks = links.concat([link]);
     return (
       <div className="linkBox">
         <h1>LilUrl Link Shortener</h1>
+        <div></div>
         <LinkForm onLinkSubmit={this.handleLinkSubmit} />
         <LinkList data={this.state.data} />
       </div>
@@ -80,12 +69,15 @@ var Link = React.createClass({
     render: function() {
         return (
             <div className="link">
-                <h2 className="linkUrl">
-                    {this.props.code}
-                </h2>
-                <p>
-                    {this.props.link}
-                </p>
+                <p>Here&apos;s your lilurl:</p>
+                <div className="container">
+                    <a href={this.props.code} className="linkUrl">
+                        {this.props.code}
+                    </a>
+                    <p>
+                        {this.props.link}
+                    </p>
+                </div>
             </div>
         );
     }
@@ -94,6 +86,7 @@ var Link = React.createClass({
 var LinkList = React.createClass({
     render: function() {
         var linkNodes = this.props.data.map(function (data) {
+            console.log(data)
             return (
                 <Link link={data.link} code={data.code}>
                 </Link>
@@ -107,21 +100,28 @@ var LinkList = React.createClass({
     }
 });
 
+var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+var regex = new RegExp(expression);
+
 var LinkForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var link = React.findDOMNode(this.refs.link).value.trim();
+    var errorMsg = React.findDOMNode(this.refs.errorMsg).value.trim();
     if (!link) {
-      return;
+       return;
+    } else if (link.match(regex)) {
+        this.props.onLinkSubmit({link: link});
+        React.findDOMNode(this.refs.link).value = '';
+    } else {
+        return;
     }
-    this.props.onLinkSubmit({link: link});
-    React.findDOMNode(this.refs.link).value = '';
   },
   render: function() {
     return (
-      <form method="post" className="linkForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="www.enterlinkhere.com" ref="link" />
-        <input type="submit" value="Shorten" />
+      <form method="post" className="linkForm" id="shortenLinkForm" onSubmit={this.handleSubmit}>
+        <input className="url-input" type="text" placeholder="www.enterlinkhere.com" ref="link" />
+        <button className="btn btn-primary" type="submit">Shorten</button>
       </form>
     );
   }
