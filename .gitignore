@@ -10,4 +10,7 @@ migrations
 herokusettings.py
 localsettings.py
 localwsgi.py
-
+herokubase.html
+localbase.html
+site.html
+testbase.html
