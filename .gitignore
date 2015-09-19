@@ -14,3 +14,5 @@ herokubase.html
 localbase.html
 site.html
 testbase.html
+admin
+admin.py
