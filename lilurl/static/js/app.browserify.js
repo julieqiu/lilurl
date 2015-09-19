@@ -34,16 +34,19 @@ $.ajaxSetup({
 });
 
 var LinkBox = React.createClass({
-  handleLinkSubmit: function(link) {
-    console.log(link)
+  handleLinkSubmit: function(link, errorMsg) {
+    if (errorMsg) {
+        this.setState({errorMsg: true})
+        return;
+    }
     $.ajax({
       url: this.props.url,
       dataType: 'json',
       type: 'POST',
       data: link,
-      success: function(msg, status, data) {
+      success: function(data) {
         console.log(data);
-        this.setState({data: data.responseJSON});
+        this.setState({data: data, errorMsg: false});
       }.bind(this),
       error: function(xhr, status, err, data) {
         console.log(status, err)
@@ -51,18 +54,35 @@ var LinkBox = React.createClass({
     });
   },
   getInitialState: function() {
-    return {data: []};
+    return ({data:[], errorMsg: false});
   },
   render: function() {
     return (
+      <div>
+      <ErrorBox errorMsg={this.state.errorMsg} />
       <div className="linkBox">
         <h1>LilUrl Link Shortener</h1>
         <div></div>
         <LinkForm onLinkSubmit={this.handleLinkSubmit} />
         <LinkList data={this.state.data} />
       </div>
+      </div>
     );
   }
+});
+
+var ErrorBox = React.createClass({
+    render: function() {
+        if (this.props.errorMsg) {
+            return (
+                <div className="errorMsg">Invalid URL</div>
+            );
+        } else {
+            return (
+                <div className="errorMsg"></div>
+            );
+        }
+    }
 });
 
 var Link = React.createClass({
@@ -107,21 +127,20 @@ var LinkForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var link = React.findDOMNode(this.refs.link).value.trim();
-    var errorMsg = React.findDOMNode(this.refs.errorMsg).value.trim();
     if (!link) {
        return;
     } else if (link.match(regex)) {
-        this.props.onLinkSubmit({link: link});
+        this.props.onLinkSubmit({link: link}, false);
         React.findDOMNode(this.refs.link).value = '';
     } else {
-        return;
+        this.props.onLinkSubmit({link: link}, true);
     }
   },
   render: function() {
     return (
       <form method="post" className="linkForm" id="shortenLinkForm" onSubmit={this.handleSubmit}>
-        <input className="url-input" type="text" placeholder="www.enterlinkhere.com" ref="link" />
-        <button className="btn btn-primary" type="submit">Shorten</button>
+        <input className="url-input" type="text" placeholder="Enter a link to shorten it" ref="link" />
+        <button className="btn" type="submit">Shorten</button>
       </form>
     );
   }

@@ -38,16 +38,19 @@ $.ajaxSetup({
 var LinkBox = React.createClass({
     displayName: 'LinkBox',
 
-    handleLinkSubmit: function handleLinkSubmit(link) {
-        console.log(link);
+    handleLinkSubmit: function handleLinkSubmit(link, errorMsg) {
+        if (errorMsg) {
+            this.setState({ errorMsg: true });
+            return;
+        }
         $.ajax({
             url: this.props.url,
             dataType: 'json',
             type: 'POST',
             data: link,
-            success: (function (msg, status, data) {
+            success: (function (data) {
                 console.log(data);
-                this.setState({ data: data.responseJSON });
+                this.setState({ data: data, errorMsg: false });
             }).bind(this),
             error: (function (xhr, status, err, data) {
                 console.log(status, err);
@@ -55,21 +58,42 @@ var LinkBox = React.createClass({
         });
     },
     getInitialState: function getInitialState() {
-        return { data: [] };
+        return { data: [], errorMsg: false };
     },
     render: function render() {
         return React.createElement(
             'div',
-            { className: 'linkBox' },
+            null,
+            React.createElement(ErrorBox, { errorMsg: this.state.errorMsg }),
             React.createElement(
-                'h1',
-                null,
-                'LilUrl Link Shortener'
-            ),
-            React.createElement('div', null),
-            React.createElement(LinkForm, { onLinkSubmit: this.handleLinkSubmit }),
-            React.createElement(LinkList, { data: this.state.data })
+                'div',
+                { className: 'linkBox' },
+                React.createElement(
+                    'h1',
+                    null,
+                    'LilUrl Link Shortener'
+                ),
+                React.createElement('div', null),
+                React.createElement(LinkForm, { onLinkSubmit: this.handleLinkSubmit }),
+                React.createElement(LinkList, { data: this.state.data })
+            )
         );
+    }
+});
+
+var ErrorBox = React.createClass({
+    displayName: 'ErrorBox',
+
+    render: function render() {
+        if (this.props.errorMsg) {
+            return React.createElement(
+                'div',
+                { className: 'errorMsg' },
+                'Invalid URL'
+            );
+        } else {
+            return React.createElement('div', { className: 'errorMsg' });
+        }
     }
 });
 
@@ -128,24 +152,23 @@ var LinkForm = React.createClass({
     handleSubmit: function handleSubmit(e) {
         e.preventDefault();
         var link = React.findDOMNode(this.refs.link).value.trim();
-        var errorMsg = React.findDOMNode(this.refs.errorMsg).value.trim();
         if (!link) {
             return;
         } else if (link.match(regex)) {
-            this.props.onLinkSubmit({ link: link });
+            this.props.onLinkSubmit({ link: link }, false);
             React.findDOMNode(this.refs.link).value = '';
         } else {
-            return;
+            this.props.onLinkSubmit({ link: link }, true);
         }
     },
     render: function render() {
         return React.createElement(
             'form',
             { method: 'post', className: 'linkForm', id: 'shortenLinkForm', onSubmit: this.handleSubmit },
-            React.createElement('input', { className: 'url-input', type: 'text', placeholder: 'www.enterlinkhere.com', ref: 'link' }),
+            React.createElement('input', { className: 'url-input', type: 'text', placeholder: 'Enter a link to shorten it', ref: 'link' }),
             React.createElement(
                 'button',
-                { className: 'btn btn-primary', type: 'submit' },
+                { className: 'btn', type: 'submit' },
                 'Shorten'
             )
         );
