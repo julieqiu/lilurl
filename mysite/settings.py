@@ -25,8 +25,10 @@ POSTGRES_PASSWORD = get_env_variable('POSTGRES_PASSWORD')
 ENVIRONMENT = get_env_variable('ENVIRONMENT')
 SECRET_KEY = get_env_variable('SECRET_KEY')
 DEBUG = True
+
 if ENVIRONMENT == 'production':
     DEBUG = False
+"""
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = 'DENY'
@@ -35,6 +37,7 @@ if ENVIRONMENT == 'production':
     SECURE_SSL_REDIRECT = True
     CSRF_COOKIE_HTTPONLY = True
     SECURE_HSTS_SECONDS = 31536000 
+"""
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/

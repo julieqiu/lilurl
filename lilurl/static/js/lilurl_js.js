@@ -53,7 +53,9 @@ var LinkBox = React.createClass({
                 this.setState({ data: data, errorMsg: false });
             }).bind(this),
             error: (function (xhr, status, err, data) {
-                console.log(status, err);
+                console.log(data);
+                console.log(status);
+                console.log(err);
             }).bind(this)
         });
     },
