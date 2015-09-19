@@ -59,11 +59,11 @@ var LinkBox = React.createClass({
   render: function() {
     return (
       <div>
+        <ErrorBox errorMsg={this.state.errorMsg} />
       <div className="linkBox">
         <h1>LilUrl Link Shortener</h1>
         <div></div>
         <LinkForm onLinkSubmit={this.handleLinkSubmit} />
-        <ErrorBox errorMsg={this.state.errorMsg} />
         <LinkList data={this.state.data} />
       </div>
       </div>
@@ -75,7 +75,7 @@ var ErrorBox = React.createClass({
     render: function() {
         if (this.props.errorMsg) {
             return (
-                <div className="errorMsg">Invalid URL</div>
+                <div className="errorMsg">Please enter a valid URL</div>
             );
         } else {
             return (
@@ -119,6 +119,7 @@ var LinkList = React.createClass({
         );
     }
 });
+
 
 var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 var regex = new RegExp(expression);
