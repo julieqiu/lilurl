@@ -64,7 +64,6 @@ var LinkBox = React.createClass({
         return React.createElement(
             'div',
             null,
-            React.createElement(ErrorBox, { errorMsg: this.state.errorMsg }),
             React.createElement(
                 'div',
                 { className: 'linkBox' },
@@ -75,6 +74,7 @@ var LinkBox = React.createClass({
                 ),
                 React.createElement('div', null),
                 React.createElement(LinkForm, { onLinkSubmit: this.handleLinkSubmit }),
+                React.createElement(ErrorBox, { errorMsg: this.state.errorMsg }),
                 React.createElement(LinkList, { data: this.state.data })
             )
         );

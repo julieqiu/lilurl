@@ -59,11 +59,11 @@ var LinkBox = React.createClass({
   render: function() {
     return (
       <div>
-      <ErrorBox errorMsg={this.state.errorMsg} />
       <div className="linkBox">
         <h1>LilUrl Link Shortener</h1>
         <div></div>
         <LinkForm onLinkSubmit={this.handleLinkSubmit} />
+        <ErrorBox errorMsg={this.state.errorMsg} />
         <LinkList data={this.state.data} />
       </div>
       </div>

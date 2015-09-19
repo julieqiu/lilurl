@@ -25,7 +25,7 @@ POSTGRES_PASSWORD = get_env_variable('POSTGRES_PASSWORD')
 ENVIRONMENT = get_env_variable('ENVIRONMENT')
 SECRET_KEY = get_env_variable('SECRET_KEY')
 DEBUG = True
-if ENVIRONMENT == 'dev':
+if ENVIRONMENT == 'production':
     DEBUG = False
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
