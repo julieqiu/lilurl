@@ -6,4 +6,7 @@ todo.txt
 staticfiles
 mediafiles
 migrations
+herokusettings.py
+localsettings.py
+localwsgi.py
 
