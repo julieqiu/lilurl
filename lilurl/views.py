@@ -13,14 +13,9 @@ def index(request):
 def postdetails(request):
     if request.method == 'POST':
         url = request.POST.get('link')
-        print url
         if (url is not None) and (url!=""):
-            print 'creating url...'
             key = create_lilurl(url)
-            print 'returned key'
-            print key
             data = json.dumps([{'link':url, 'code': key}])
-            print data
             return HttpResponse(data)
     return HttpResponse('post details get')
 
