@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('lilurl.urls', namespace="lilurl")),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.png'))
 ]
