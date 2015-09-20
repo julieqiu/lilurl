@@ -17,6 +17,7 @@ def postdetails(request):
         if (url is not None) and (url!=""):
             print 'creating url...'
             key = create_lilurl(url)
+            print 'returned key'
             print key
             data = json.dumps([{'link':url, 'code': key}])
             print data

@@ -12,6 +12,7 @@ def create_lilurl(redirect_url):
             lilurl = Url(shortener_code=shortener_code, redirect_url=redirect_url) 
             print lilurl
             lilurl.save()
+            print 'returning url'
             return shortener_code
         except IntegrityError:
             print 'shortener_code collision on %s' %shortener_code
