@@ -2,23 +2,9 @@
 
 var $ = require('jquery');  
 var React = require('react');
+var Cookies = require('js-cookie');
 
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = $.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
+var csrftoken = Cookies.get('csrftoken');
 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -34,9 +20,19 @@ $.ajaxSetup({
 });
 
 var LinkBox = React.createClass({
+  setCookies: function(data) {
+    var links = Cookies.getJSON('links');
+    console.log(links)
+    if (links) {
+       var newLinks = data.concat(links.slice(0,10));
+       Cookies.set('links', newLinks);
+    } else {
+       Cookies.set('links', data);
+    } 
+  },
   handleLinkSubmit: function(link, errorMsg) {
     if (errorMsg) {
-        this.setState({errorMsg: true})
+        this.setState({errorMsg: true});
         return;
     }
     $.ajax({
@@ -45,12 +41,13 @@ var LinkBox = React.createClass({
       type: 'POST',
       data: link,
       success: function(data) {
-        console.log(data);
+        console.log('success function!');
         this.setState({data: data, errorMsg: false});
+        this.setCookies(data);
       }.bind(this),
       error: function(xhr, status, err, data) {
-        console.log(data);
         console.log(status);
+        console.log(data);
         console.log(err);
       }.bind(this)
     });
@@ -61,11 +58,11 @@ var LinkBox = React.createClass({
   render: function() {
     return (
       <div>
-        <ErrorBox errorMsg={this.state.errorMsg} />
       <div className="linkBox">
         <h1>LilUrl Link Shortener</h1>
         <div></div>
         <LinkForm onLinkSubmit={this.handleLinkSubmit} />
+        <ErrorBox errorMsg={this.state.errorMsg} />
         <LinkList data={this.state.data} />
       </div>
       </div>
@@ -88,16 +85,25 @@ var ErrorBox = React.createClass({
 });
 
 var Link = React.createClass({
+    shortLink: function(link) {
+        if ( link.length > 60 ) {
+            return (link.substr(0,60)+'...');
+        } else {
+            return link;
+        }
+    },
+    fullLilurl: function(code) {
+        return (window.location.origin + '/' + code);
+    },
     render: function() {
         return (
             <div className="link">
-                <p>Here&apos;s your lilurl:</p>
                 <div className="container">
-                    <a href={this.props.code} className="linkUrl">
-                        {this.props.code}
+                    <a href={this.fullLilurl(this.props.code)} className="linkUrl">
+                        {this.fullLilurl(this.props.code)}
                     </a>
-                    <p>
-                        {this.props.link}
+                    <p id='redirect-url'>
+                        {this.shortLink(this.props.link)}
                     </p>
                 </div>
             </div>
@@ -107,16 +113,37 @@ var Link = React.createClass({
 
 var LinkList = React.createClass({
     render: function() {
+        var cookieLinks = Cookies.getJSON('links');
+        if (cookieLinks) {
+            var recentHeader = <h2 className='listHeader'>Recently Shortened Links</h2>
+            var recentNodes = cookieLinks.map(function (cookieLinks) {
+                return (
+                   <Link link={cookieLinks.link} code={cookieLinks.code}>
+                   </Link>
+                );
+            });
+        } else {
+            var recentHeaders = <div></div>
+            var recentNodes = <div></div>
+        }
         var linkNodes = this.props.data.map(function (data) {
-            console.log(data)
             return (
-                <Link link={data.link} code={data.code}>
-                </Link>
+                <div>
+                    <h2 className='listHeader'>Here's Your LilURL!</h2>
+                    <Link link={data.link} code={data.code}>
+                    </Link>
+                </div>
             );
         });
         return (
-            <div className="linkList">
-                {linkNodes}
+            <div>
+                <div className="linkList">
+                    {linkNodes}
+                </div>
+                <div>
+                    {recentHeader}
+                    {recentNodes}
+                </div>
             </div>
         );
     }
@@ -130,9 +157,9 @@ var LinkForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var link = React.findDOMNode(this.refs.link).value.trim();
-    if (!link) {
+    if (!link || link == '') {
        return;
-    } else if (link.match(regex)) {
+    } else if (link.match(regex) && link.length < 200) {
         this.props.onLinkSubmit({link: link}, false);
         React.findDOMNode(this.refs.link).value = '';
     } else {
