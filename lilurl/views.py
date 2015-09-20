@@ -12,13 +12,13 @@ def index(request):
 
 def postdetails(request):
     if request.method == 'POST':
-        #host = request.get_host()
-        #print host
-        #host = 'http://'+host+'/'
         url = request.POST.get('link')
+        print url
         if (url is not None) and (url!=""):
             key = create_lilurl(url)
+            print key
             data = json.dumps([{'link':url, 'code': key}])
+            print data
             return HttpResponse(data)
     return HttpResponse('post details get')
 
