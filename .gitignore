@@ -6,13 +6,4 @@ node_modules
 todo.txt
 staticfiles
 mediafiles
-herokusettings.py
-localsettings.py
-localwsgi.py
-herokubase.html
-localbase.html
-site.html
-testbase.html
-admin
-admin.py
 migrations
