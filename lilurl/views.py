@@ -27,3 +27,18 @@ def redir(request, shortener_code):
     if 'https://' not in link and 'http://' not in link: 
         link = 'https://' + link
     return redirect(link)
+
+def info(request, shortener_code):
+    print request.COOKIES
+    print type(request.COOKIES)
+    data = request.COOKIES['links']
+    print data
+    print type(data)
+    data = json.loads(data)
+    print data
+    lilurl = get_object_or_404(Url, shortener_code=shortener_code)
+    key = lilurl.shortener_code
+    url = lilurl.redirect_url
+    clicks = lilurl.num_clicks
+    data = json.dumps([{'link': url, 'code': key, 'clicks': clicks}])
+    return HttpResponse(data)
