@@ -32,11 +32,11 @@ if ENVIRONMENT == 'production':
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 31536000 
     X_FRAME_OPTIONS = 'DENY'
+    SECURE_CONTENT_TYPE_NOSNIFF = True
 """
     CSRF_COOKIE_HTTPONLY = True
     SECURE_SSL_REDIRECT = True
     SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
 """
 
 # Quick-start development settings - unsuitable for production
