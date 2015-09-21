@@ -1,12 +1,3 @@
-"""
-Django settings for mysite/lilurl project on Heroku. Fore more info, see:
-https://github.com/heroku/heroku-django-template
-For more information on this file, see
-https://docs.djangoproject.com/en/1.8/topics/settings/
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.8/ref/settings/
-"""
-
 import os
 import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
@@ -35,6 +26,7 @@ if ENVIRONMENT == 'production':
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_SSL_REDIRECT = True
     SECURE_BROWSER_XSS_FILTER = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True    
 """
     CSRF_COOKIE_HTTPONLY = True
 """
