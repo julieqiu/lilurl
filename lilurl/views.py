@@ -27,8 +27,3 @@ def redir(request, shortener_code):
     if 'https://' not in link and 'http://' not in link: 
         link = 'https://' + link
     return redirect(link)
-
-def lilurls(request):
-    urls = Url.objects.all()
-    data = serializers.serialize("json", urls)
-    return HttpResponse(data)
