@@ -14,8 +14,8 @@
     "uglify-js": "^2.4.24"
   },
   "scripts": {
-    "build": "browserify lilurl/static/js/app.browserify.js -o lilurl/static/js/lilurl_js.js -t babelify",
-    "watch": "watchify lilurl/static/js/app.browserify.js -o lilurl/static/js/lilurl_js.js -t babelify"
+    "build": "browserify lilurl/static/js/app.browserify.jsx -o lilurl/static/js/lilurl_js.js -t babelify",
+    "watch": "watchify lilurl/static/js/app.browserify.jsx -o lilurl/static/js/lilurl_js.js -t babelify"
   },
   "author": "",
   "license": "ISC"
