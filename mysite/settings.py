@@ -34,9 +34,9 @@ if ENVIRONMENT == 'production':
     X_FRAME_OPTIONS = 'DENY'
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_SSL_REDIRECT = True
+    SECURE_BROWSER_XSS_FILTER = True
 """
     CSRF_COOKIE_HTTPONLY = True
-    SECURE_BROWSER_XSS_FILTER = True
 """
 
 # Quick-start development settings - unsuitable for production
