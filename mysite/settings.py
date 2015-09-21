@@ -27,9 +27,7 @@ if ENVIRONMENT == 'production':
     SECURE_SSL_REDIRECT = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True    
-"""
-    CSRF_COOKIE_HTTPONLY = True
-"""
+    CSRF_COOKIE_HTTPONLY = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
