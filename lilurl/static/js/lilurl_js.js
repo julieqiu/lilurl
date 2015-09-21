@@ -191,10 +191,10 @@ var LinkForm = React.createClass({
         if (!link || link == '') {
             return;
         } else if (link.match(regex) && link.length < 200) {
-            this.props.onLinkSubmit({ link: link }, false);
+            this.props.onLinkSubmit({ link: link, csrfmiddlewaretoken: csrftoken }, false);
             React.findDOMNode(this.refs.link).value = '';
         } else {
-            this.props.onLinkSubmit({ link: link }, true);
+            this.props.onLinkSubmit({ link: link, csrfmiddlewaretoken: csrftoken }, true);
         }
     },
     render: function render() {
