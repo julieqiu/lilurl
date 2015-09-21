@@ -7,6 +7,4 @@ urlpatterns = [
     url(r'^postdetails/', views.postdetails, name='postdetails'),
     url(r'^(?P<shortener_code>\w+)/$', views.redir, 
         name='redir'),
-    url(r'^info/(?P<shortener_code>\w+)/$', views.info, 
-        name='info'),
 ]
