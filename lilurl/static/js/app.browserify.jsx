@@ -134,10 +134,10 @@ var LinkList = React.createClass({
             );
         });
         return (
-            <div>
-                <div className="linkList">
-                    {linkNodes}
-                </div>
+            <div className="linkList">
+                {linkNodes}
+                {recentHeaders}
+                {recentNodes}
             </div>
         );
     }

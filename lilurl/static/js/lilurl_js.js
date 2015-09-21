@@ -161,12 +161,10 @@ var LinkList = React.createClass({
         });
         return React.createElement(
             'div',
-            null,
-            React.createElement(
-                'div',
-                { className: 'linkList' },
-                linkNodes
-            )
+            { className: 'linkList' },
+            linkNodes,
+            recentHeaders,
+            recentNodes
         );
     }
 });
