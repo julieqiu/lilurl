@@ -126,9 +126,9 @@ var LinkList = React.createClass({
         }
         var linkNodes = this.props.data.map(function (data) {
             return (
-                <div>
+                <div key={data.code}>
                     <h2 className='listHeader'>Here's Your LilURL!</h2>
-                    <Link link={data.link} code={data.code} key={data.code}>
+                    <Link link={data.link} code={data.code}>
                     </Link>
                 </div>
             );
@@ -137,10 +137,6 @@ var LinkList = React.createClass({
             <div>
                 <div className="linkList">
                     {linkNodes}
-                </div>
-                <div>
-                    {recentHeader}
-                    {recentNodes}
                 </div>
             </div>
         );
