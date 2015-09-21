@@ -22,7 +22,6 @@ $.ajaxSetup({
 var LinkBox = React.createClass({
   setCookies: function(data) {
     var links = Cookies.getJSON('links');
-    console.log(links)
     if (links) {
        var newLinks = data.concat(links.slice(0,10));
        Cookies.set('links', newLinks);
@@ -41,7 +40,6 @@ var LinkBox = React.createClass({
       type: 'POST',
       data: link,
       success: function(data) {
-        console.log('success function!');
         this.setState({data: data, errorMsg: false});
         this.setCookies(data);
       }.bind(this),
