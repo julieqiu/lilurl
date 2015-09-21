@@ -144,7 +144,7 @@ var LinkList = React.createClass({
                 return React.createElement(Link, { link: cookieLinks.link, code: cookieLinks.code, key: cookieLinks.code });
             });
         } else {
-            var recentHeaders = React.createElement('div', null);
+            var recentHeader = React.createElement('div', null);
             var recentNodes = React.createElement('div', null);
         }
         var linkNodes = this.props.data.map(function (data) {
@@ -163,7 +163,7 @@ var LinkList = React.createClass({
             'div',
             { className: 'linkList' },
             linkNodes,
-            recentHeaders,
+            recentHeader,
             recentNodes
         );
     }

@@ -121,7 +121,7 @@ var LinkList = React.createClass({
                 );
             });
         } else {
-            var recentHeaders = <div></div>
+            var recentHeader = <div></div>
             var recentNodes = <div></div>
         }
         var linkNodes = this.props.data.map(function (data) {
@@ -136,7 +136,7 @@ var LinkList = React.createClass({
         return (
             <div className="linkList">
                 {linkNodes}
-                {recentHeaders}
+                {recentHeader}
                 {recentNodes}
             </div>
         );
