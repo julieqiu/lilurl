@@ -1,9 +1,6 @@
 venv
 *.pyc
 .keys.sh
-comments
 node_modules
-todo.txt
 staticfiles
-mediafiles
 migrations
