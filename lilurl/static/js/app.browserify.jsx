@@ -116,7 +116,7 @@ var LinkList = React.createClass({
             var recentHeader = <h2 className='listHeader'>Recently Shortened Links</h2>
             var recentNodes = cookieLinks.map(function (cookieLinks) {
                 return (
-                   <Link link={cookieLinks.link} code={cookieLinks.code}>
+                   <Link link={cookieLinks.link} code={cookieLinks.code} key={cookieLinks.code}>
                    </Link>
                 );
             });
@@ -128,7 +128,7 @@ var LinkList = React.createClass({
             return (
                 <div>
                     <h2 className='listHeader'>Here's Your LilURL!</h2>
-                    <Link link={data.link} code={data.code}>
+                    <Link link={data.link} code={data.code} key={data.code}>
                     </Link>
                 </div>
             );

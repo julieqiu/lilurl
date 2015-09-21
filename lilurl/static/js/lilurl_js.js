@@ -141,7 +141,7 @@ var LinkList = React.createClass({
                 'Recently Shortened Links'
             );
             var recentNodes = cookieLinks.map(function (cookieLinks) {
-                return React.createElement(Link, { link: cookieLinks.link, code: cookieLinks.code });
+                return React.createElement(Link, { link: cookieLinks.link, code: cookieLinks.code, key: cookieLinks.code });
             });
         } else {
             var recentHeaders = React.createElement('div', null);
@@ -156,7 +156,7 @@ var LinkList = React.createClass({
                     { className: 'listHeader' },
                     'Here\'s Your LilURL!'
                 ),
-                React.createElement(Link, { link: data.link, code: data.code })
+                React.createElement(Link, { link: data.link, code: data.code, key: data.code })
             );
         });
         return React.createElement(
